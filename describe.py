@@ -6,6 +6,8 @@ import numpy
 
 pandas.set_option("max_columns", 100)
 
+# The average of a data set 
+# adding all the numbers and dividing
 def mymean(col):
     mysum = 0
     c = mycount(col)
@@ -15,6 +17,7 @@ def mymean(col):
         mysum += e
     return mysum/c
 
+# The minimum data of a data set
 def mymin(col):
     if not mycount(col):
         return numpy.nan
@@ -24,6 +27,7 @@ def mymin(col):
             m = e
     return m
 
+# The maximum data of a data set
 def mymax(col):
     if not mycount(col):
         return numpy.nan
@@ -33,21 +37,23 @@ def mymax(col):
             m = e
     return m
 
+# The total number of data set
 def mycount(col):
     count = 0;
     for e in col:
         count += 1;
     return count
 
+# Standard Deviation of a data set
 def mystd(col):
     m = mymean(col);
     m2 = 0
     for e in list(col):
         m2 += (e - m) * (e - m)
-    c = mycount(col)
+    c = mycount(col) #(not n - 1 ?)
     if not c:
         return numpy.nan
-    m2 /= mycount(col)
+    m2 /= mycount(col) 
     std = math.sqrt(m2)
     return std
 
