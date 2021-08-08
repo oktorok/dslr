@@ -5,22 +5,36 @@ import sys
 import numpy
 from describe.py import describe 
 
-def homogeneity_table(df, fields, houses, type_calc):
-    homo = {}
-    homo['Total Courses'] = [0] * (len(houses)+1)
+def observed_table(df, fields, houses, type_calc):
+    observed = {}
+    row = {}
+    row['Total Courses'] = [0] * (len(houses)+1)
     for field in fields[2:]:
         sum = 0
-        homo[field] = []
+        observed[field] = []
         for house in houses:
             sum += df[house][field][type_calc]
-            homo[field].append(df[house][field][type_calc])    
-        homo[field].append(sum)
-        homo['Total Courses'] = [homo['Total Courses'][i] + homo[field][i] for i in range(len(homo[field]))]
+            observed[field].append(df[house][field][type_calc])    
+        observed[field].append(sum)
+        row['Total Courses'] = [row['Total Courses'][i] + observed[field][i] for i in range(len(observed[field]))]
+    
+    observed['Total Courses'] = row['Total Courses']
+    observed_df = pd.DataFrame(observed)
+    observed_df.index = houses + ['Total Students']
+    return (observed_df)
 
-    heterogeniety_df = pd.DataFrame(homo)
-    heterogeniety_df.index = houses + ['Total Students']
-    return (heterogeniety_df)
 
+def expected_table(df):
+    expected = df;
+     
+    max_col = range(len(df)) - 1
+    max_row = range(len(df[0])) - 1
+    expected = [ [tab[max_col][i] * tab[j][max_row]/ tab[max_col][max_row]
+    
+                    + Y[i][j]  for j in range(len(X[0]))
+    
+    ] for i in range(len(X))]
+    
 
 def myvar(col):
     mean = mymean(col)
@@ -68,4 +82,4 @@ if __name__ == "__main__":
         describe_df = describe(df, numeric_features)
         house_data['Total Student'] = describe_df
         
-        homongeneity_df = homogeneity_table(df, numeric_features, houses, 'count')
+        observed_df = observed_table(house_data, numeric_features, houses, 'sum')
