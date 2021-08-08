@@ -6,6 +6,14 @@ import numpy
 
 pandas.set_option("max_columns", 100)
 
+def mysum(col):
+    mysum = 0
+    if not c:
+        return numpy.nan
+    for e in col:
+        mysum += e
+    return mysum
+
 # The average of a data set 
 # adding all the numbers and dividing
 def mymean(col):
@@ -58,11 +66,11 @@ def mystd(col):
     return std
 
 def describe(df, fields):
-    index = ['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max']
+    index = ['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max', 'sum']
     data = {}
     for field in fields:
         col = df[field].dropna()
-        data[field] = [mycount(col), mymean(col), mystd(col), mymin(col), mypercentile(col, 25), mypercentile(col,50), mypercentile(col, 75), mymax(col)]
+        data[field] = [mycount(col), mymean(col), mystd(col), mymin(col), mypercentile(col, 25), mypercentile(col,50), mypercentile(col, 75), mymax(col), mysum(col)]
     describe_df = pandas.DataFrame(data)
     describe_df.index = index
     return describe_df
