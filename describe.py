@@ -6,10 +6,10 @@ import numpy
 
 pandas.set_option("max_columns", 100)
 
+# The sum of a data set 
+# adding all the numbers
 def mysum(col):
     mysum = 0
-    if not c:
-        return numpy.nan
     for e in col:
         mysum += e
     return mysum
