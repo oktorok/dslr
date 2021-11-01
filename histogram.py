@@ -27,14 +27,10 @@ def observed_table(df, fields, houses, type_calc):
 def expected_table(df):
     expected = df;
      
-    max_col = range(len(df)) - 1
-    max_row = range(len(df[0])) - 1
-    expected = [ [tab[max_col][i] * tab[j][max_row]/ tab[max_col][max_row]
-    
-                    + Y[i][j]  for j in range(len(X[0]))
-    
-    ] for i in range(len(X))]
-    
+    max_col = len(df.iloc[0]) - 1
+    max_row = len(df[0]) - 1
+    expected = [[df.iloc[max_row, j] * df.iloc[i,max_col] / df.iloc[max_row,max_col] for j in range(max_col)]
+            for i in range(max_row)]
 
 def myvar(col):
     mean = mymean(col)
@@ -83,3 +79,4 @@ if __name__ == "__main__":
         house_data['Total Student'] = describe_df
         
         observed_df = observed_table(house_data, numeric_features, houses, 'sum')
+        
