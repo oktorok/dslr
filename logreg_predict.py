@@ -47,4 +47,4 @@ if __name__ == "__main__":
         for i in y:
             data['Hogwarts House'].append(labels[i])
         houses = pandas.DataFrame(data)
-        houses.to_csv("houses.csv", index=False)
+        houses.to_csv("houses.csv", index_label="Index")

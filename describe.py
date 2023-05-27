@@ -4,8 +4,6 @@ import math
 import sys
 import numpy
 
-pandas.set_option("max_columns", 100)
-
 def mymean(col):
     mysum = 0
     c = mycount(col)

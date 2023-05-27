@@ -25,13 +25,13 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("USAGE: logreg_train.py <CSV FILE>")
     else:
-		    dataset = pandas.read_csv(sys.argv[1])
-		    X, y, labels = prepare_data(dataset)
-		    lr = LR.mylogisticregression()
-		    lr.fit(X, y)
-		    lr.train(len(labels), iterations=1000, alpha=0.01, tolerance=0.0005)
-		    with open("weights.txt", "w") as f:
-		        for classifier in lr.classifiers:
-		            for classi in classifier:
-		                f.write(f"{classi} ")
-		            f.write("\n")
+        dataset = pandas.read_csv(sys.argv[1])
+        X, y, labels = prepare_data(dataset)
+        lr = LR.mylogisticregression()
+        lr.fit(X, y)
+        lr.train(len(labels), iterations=1000, alpha=0.01, tolerance=0.0005)
+        with open("weights.txt", "w") as f:
+            for classifier in lr.classifiers:
+                for classi in classifier:
+                    f.write(f"{classi} ")
+                f.write("\n")
