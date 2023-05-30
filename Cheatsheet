@@ -1,0 +1,67 @@
+Needs a precision of of 98 %
+- Ansxers will be evaluated using accuracy score of the Scikit-Learn library. (https://scikit-learn.org/stable/modules/model_evaluation.html#accuracy-score)
+```
+import numpy as np
+from sklearn.metrics import accuracy_score
+y_pred = [0,2,1,3]
+y_true = [0,1,2,3]
+accuracy_score(y_true, y_pred)
+accuracy_score(y_true, y_pred, normalize=False)
+```
+
+Standard deviations are usually easier to picture and apply. The standard deviation is expressed in the same unit of measurement as the data, which isn't necessarily the case with the variance. Using the standard deviation, statisticians may determine if the data has a normal curve or other mathematical relationship.
+
+If the data behaves in a normal curve, then 68% of the data points will fall within one standard deviation of the average, or mean, data point. Larger variances cause more data points to fall outside the standard deviation. Smaller variances result in more data that is close to average.
+
+standard observation naturally gives more weight to extreme values.
+
+Which Hogwarts course has a homogeneous score distribution between all four houses?
+
+The F value in one way ANOVA is a tool to help you answer the question “Is the variance between the means of two populations significantly different?”
+
+he p value is a probability, while the f ratio is a test statistic, calculated as:
+
+    F value = variance of the group means (Mean Square Between) / mean of the within group variances (Mean Squared Error)
+
+
+An F statistic is a value you get when you run an ANOVA test or a regression analysis to find out if the means between two populations are significantly different
+F test will tell you if a group of variables are jointly significant.
+
+When Do I Reject the Null Hypothesis?
+
+    Reject the null when your p value is smaller than your alpha level. You should not reject the null if your critical f value is smaller than your F Value, unless you also have a small p-value.
+
+What is “Statistically Significant“?
+
+Simply put, if you have significant result, it means that your results likely did not happen by chance. If you don’t have statistically significant results, you throw your test data out (as it doesn’t show anything!); in other words, you can’t reject the null hypothesis.
+
+In your F test results, you’ll have both an F value and an F critical value.
+
+The value you calculate from your data is called the F Statistic or F value (without the “critical” part).
+The F critical value is a specific value you compare your f-value to.
+
+In general, if your calculated F value in a test is larger than your F critical value, you can reject the null hypothesis. However, the statistic is only one measure of significance in an F Test. You should also consider the p value. The p value is determined by the F statistic and is the probability your results could have happened by chance.
+
+
+p value = how likely you are to hhave found a particular ser of observations if the null hypothesis were true.
+The smaller the p value, the more likely you are to reject the null hypothesis.
+
+the null hypothesis is that there is no relationship between your variables of interest or that there is no difference among groups.
+
+The most common threshold is p < 0.05; that is, when you would expect to find a test statistic as extreme as the one calculated by your test only 5% of the time. But the threshold depends on your field of study – some fields prefer thresholds of 0.01, or even 0.001.
+The threshold value for determining statistical significance is also known as the alpha value.
+
+### What are the two features that are similar ?
+
+Numerical Input, Categorical Output
+
+This is a classification predictive modeling problem with numerical input variables.
+
+This might be the most common example of a classification problem,
+
+Again, the most common techniques are correlation based, although in this case, they must take the categorical target into account.
+
+    ANOVA correlation coefficient (linear).
+    Kendall’s rank coefficient (nonlinear).
+
+Kendall does assume that the categorical variable is ordinal.
