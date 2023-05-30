@@ -1,45 +1,70 @@
 import pandas as pd
+from scipy.stats import f_oneway
 import matplotlib.pyplot as plt
 import argparse
-import sys
+import config
 
 similar_courses = ['Defense Against the Dark Arts', 'Astronomy']
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--full', action='store_true', help='Show All Scatter Plots')
-args = parser.parse_args()
+data = pd.read_csv(config.DATA_SRC+'/dataset_train.csv')
+features = similar_courses
+rows = 1
+fig, axs = plt.subplots(1)
 
-data = pd.read_csv('datasets/dataset_train.csv')
-if not args.full:
-    features = similar_courses
-    cdata = data[features].dropna()
-    fig, axs = plt.subplots(1)
-    axs.scatter(data[features[0]], data[features[1]])
+#Dropping not complete data
+#cdata = data[features].dropna() 
+
+#Take only the relevant data
+cdata = data[features + ['Hogwarts House']]
+
+houses_color = {'Gryffindor': "#CD373C", 
+                'Hufflepuff': "#ecb939", 
+                'Ravenclaw': "#21a8d5",
+                'Slytherin': "#1a472a" }
+
+if rows == 1:
+    # Create the scatter plot
+    for house in houses_color:
+        axs.scatter(cdata[cdata['Hogwarts House']==house][features[0]], 
+                    cdata[cdata['Hogwarts House']==house][features[1]], 
+                    color=houses_color[house], label=house)
+
+    #create legend's informations
     axs.set_title(features[1])
-    axs.set_ylabel(features[0])
-else:
-    features =  ['Arithmancy', 'Astronomy', 'Herbology',
-'Defense Against the Dark Arts', 'Divination', 'Muggle Studies',
-'Ancient Runes', 'History of Magic', 'Transfiguration', 'Potions',
-'Care of Magical Creatures', 'Charms', 'Flying']
-    cdata = data[features].dropna()
-    fig, axs = plt.subplots(len(features), len(features),figsize=(20, 10))
+    axs.set_ylabel(features[0])    
+    handles, labels = axs.get_legend_handles_labels()
 
-    # Iterar sobre las combinaciones de características y crear los scatter plots correspondientes
-    for i in range(len(features)):
-        for j in range(len(features)):
-            # Obtener las características actuales para el scatter plot
-            feature1 = features[i]
-            feature2 = features[j]
-            # Crear el scatter plot en el subplt correspondiente
-            if i != j:
-                axs[i, j].scatter(data[feature1], data[feature2], s=2)
-            if i == 0:
-                axs[i, j].set_title(feature2, fontsize=5)
-            if j == 0:
-                axs[i, j].set_ylabel(feature1, fontsize=5)
-            axs[i, j].tick_params(axis='both', labelsize=2)
-    plt.subplots_adjust(wspace=0.4, hspace=0.4)
+else:
+    # Create all the scatter plot for all the combination of the caracterisc.
+    for i in range(rows):
+        for j in range(rows):
+            # Taking out duplicate graphics
+            if j + 1 > rows - i : 
+                fig.delaxes(axs[i, j]) 
+            else:
+                # Obtener las características actuales para el scatter plot
+                feature1 = features[i]
+                feature2 = features[rows - j]
+
+                # Create the scatter plot in the subplt correspondent
+                for house in houses_color:
+                    axs[i, j].scatter(cdata[cdata['Hogwarts House']==house][feature1], 
+                                      cdata[cdata['Hogwarts House']==house][feature2], 
+                                      color=houses_color[house], label=house)
+
+                if i == 0:
+                    axs[i, j].set_title(feature2)
+                if j == 0:
+                    axs[i, j].set_ylabel(feature1)
+                
+                axs[i, j].tick_params(axis='both', labelsize=12)
+    plt.subplots_adjust(wspace=0.2, hspace=0.2)
+
+    #create legend's informations
+    handles, labels = axs[0,0].get_legend_handles_labels()
+
+fig.legend(handles, labels, loc='outside upper left')
+fig.suptitle('Scatterplot of Hogwarts Courses\' by Scores')
 
 plt.tight_layout()
 plt.show()
